@@ -23,7 +23,7 @@ const VacationCalculator = () => {
       const worksheet = workbook.Sheets[sheetName];
       const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 
-      // Преобразуем данные в объекты
+     
       const parsedData = jsonData.map((row, index) => {
         if (index === 0) return row; // Пропускаем заголовок
         return {
@@ -32,16 +32,16 @@ const VacationCalculator = () => {
           Месяц: row[2],
           ЗП: row[3]
         };
-      }).slice(1); // Удаляем заголовок
+      }).slice(1); 
 
-      // Заполняем пустые значения ФИО
+     
       for (let i = 1; i < parsedData.length; i++) {
         if (!parsedData[i].ФИО) {
           parsedData[i].ФИО = parsedData[i - 1].ФИО;
         }
       }
 
-      // Рассчитываем общий заработок и отпускные
+
       const totalEarnings = {};
       const vacationPay = {};
       parsedData.forEach((row) => {
@@ -62,7 +62,7 @@ const VacationCalculator = () => {
         Размер_отпускных: vacationPay[fio]
       }));
 
-      // Обновляем состояние с результатами
+     
       setResult(resultData);
       console.log('Result Data:', resultData); // Добавлено для отладки
     };
